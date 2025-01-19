@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Customer, Sale, Bill
+from .models import Product, Customer, Sale, Bill, Category
 
 
 class Product_Manager(admin.ModelAdmin):
@@ -15,7 +15,11 @@ class Sale_Manager(admin.ModelAdmin):
 
 
 class Bill_Manager(admin.ModelAdmin):
-    list_display=['customer','price','quantity', 'add_date']
+    list_display=['customer','quantity', 'sale_date']
+
+
+class Category_Manager(admin.ModelAdmin):
+    list_display=['name']
 
 
 
@@ -23,3 +27,4 @@ admin.site.register(Product, Product_Manager)
 admin.site.register(Customer, Customer_Manager)
 admin.site.register(Sale, Sale_Manager)
 admin.site.register(Bill, Bill_Manager)
+admin.site.register(Category, Category_Manager)
