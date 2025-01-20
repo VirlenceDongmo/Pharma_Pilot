@@ -22,8 +22,28 @@
 
                         {% csrf_token %}
 
+                        {% if messages %}
+
+                            <ul class="messages">
+                                
+                                {% for message in messages  %}
+                                    <li {% if message.tags %}class="{message.tags}"{% endif %}>
+                                        {{message}}
+                                    </li>
+                                {% endfor %}
+                                
+                            </ul>
+                        
+                        {% endif %}
+
                         <div class="row justify-content-between text-left">
-                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Product name<span class="text-danger"> *</span></label> <input type="text" id="name" name="name" placeholder="Enter your product name" onblur="validate(1)" required> </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Product name<span class="text-danger"> *</span></label> <input type="text" id="name" name="name" placeholder="Enter your product name" onblur="validate(1)" required> 
+                                {% if errors.name %}
+                                    <div class="errors" style="color: red;">
+                                        <p>{{errors.name}}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Category<span class="text-danger"> *</span></label>
                                 <select id='category' name='category' required>
                                     <option desabled>Choose your product category</option>
@@ -34,22 +54,56 @@
 
                                     
                                 </select> 
+                                {% if errors.category %}
+                                    <div class="errors" style="color: red;">
+                                        <p>{{errors.category}}</p>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="row justify-content-between text-left">
-                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Quantity<span class="text-danger"> *</span></label> <input type="number" id="quantity" name="quantity" placeholder="Enter your quantity product" onblur="validate(3)" required> </div>
-                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Unit price of the product<span class="text-danger"> *</span></label> <input type="number" id="price" name="price" placeholder="Enter your unit price product" onblur="validate(4)" required> </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Quantity<span class="text-danger"> *</span></label> <input type="number" id="quantity" name="quantity" placeholder="Enter your quantity product" onblur="validate(3)" required> 
+                                {% if errors.quantity %}
+                                    <div class="errors" style="color: red;">
+                                        <p>{{errors.quantity}}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Unit price of the product<span class="text-danger"> *</span></label> <input type="number" id="price" name="price" placeholder="Enter your unit price product" onblur="validate(4)" required>
+                                {% if errors.price %}
+                                    <div class="errors" style="color: red;">
+                                        <p>{{errors.price}}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
                         <div class="row justify-content-between text-left">
-                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Description<span class="text-danger"> *</span></label> <input type="text" id="description" name="description" placeholder="Enter your product description" onblur="validate(5)" required> </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Description<span class="text-danger"> *</span></label> <input type="text" id="description" name="description" placeholder="Enter your product description" onblur="validate(5)" required> 
+                                {% if errors.description %}
+                                    <div class="errors" style="color: red;">
+                                        <p>{{errors.description}}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
                         <div class="row justify-content-between text-left">
-                            <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Expiration date<span class="text-danger"> *</span></label> <input type="date" id="expiration_date" name="expiration_date" placeholder="Enter your expiration date product" onblur="validate(6)" required> </div>
+                            <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Expiration date<span class="text-danger"> *</span></label> <input type="date" id="expiration_date" name="expiration_date" placeholder="Enter your expiration date product" onblur="validate(6)" required>
+                                {% if errors.expiration_date %}
+                                    <div class="errors" style="color: red;">
+                                        <p>{{errors.expiration_date}}</p>
+                                    </div>
+                                {% endif %} 
+                            </div>
                         </div>
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-12 flex-column d-flex">
                                 <label class="form-control-label px-3">Image product<span class="text-danger"> *</span></label>
                                 <input type="file" id="image" name="image" accept="image/*" required>
+                                {% if errors.image %}
+                                    <div class="errors" style="color: red;">
+                                        <p>{{errors.image}}</p>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="row justify-content-end">

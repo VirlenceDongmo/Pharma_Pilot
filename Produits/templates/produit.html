@@ -23,6 +23,20 @@
 
 </style>
 
+{% if messages %}
+
+  <ul class="messages">
+      
+    {% for message in messages  %}
+      <li {% if message.tags %}class="{message.tag}"{% endif %} style="color: green;">
+        {{message}}
+      </li>
+    {% endfor %}
+      
+  </ul>
+
+{% endif %}
+
 <div class="products-area-wrapper tableView">
       <div class="products-header">
         <div class="product-cell image">
