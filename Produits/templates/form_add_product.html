@@ -1,17 +1,17 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en" >
-    <head>
-        <meta charset="UTF-8">
-        <title>Ajout des produits</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-        <link rel="stylesheet" href="{% static 'style_add_product.css' %}">
-        <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'font-awesome.min.css' %}">
-    </head>
-    <body>
-        <div class="container-fluid px-1 py-5 mx-auto">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajout des produits</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="{% static 'style_add_product.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome.min.css' %}">
+</head>
+<body>
+    <div class="container-fluid px-1 py-5 mx-auto">
         <div class="row d-flex justify-content-center">
             <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
                 <h3>Adding products</h3>
@@ -19,95 +19,128 @@
                 <div class="card">
                     <h5 class="text-center mb-4">Powering world-class companies</h5>
                     <form class="form-card" method="POST" enctype="multipart/form-data">
-
                         {% csrf_token %}
 
                         {% if messages %}
-
                             <ul class="messages">
-                                
-                                {% for message in messages  %}
-                                    <li {% if message.tags %}class="{message.tags}"{% endif %}>
-                                        {{message}}
+                                {% for message in messages %}
+                                    <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+                                        {{ message }}
                                     </li>
                                 {% endfor %}
-                                
                             </ul>
-                        
                         {% endif %}
 
+                        <!-- Product Information -->
                         <div class="row justify-content-between text-left">
-                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Product name<span class="text-danger"> *</span></label> <input type="text" id="name" name="name" placeholder="Enter your product name" onblur="validate(1)" required> 
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label class="form-control-label px-3">Product name<span class="text-danger"> *</span></label>
+
+                                {{form.name}}
+
+                                <div class="text-danger">{{form.name.errors}}</div>
+
                                 {% if errors.name %}
                                     <div class="errors" style="color: red;">
-                                        <p>{{errors.name}}</p>
+                                        <p>{{ errors.name }}</p>
                                     </div>
                                 {% endif %}
                             </div>
-                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Category<span class="text-danger"> *</span></label>
-                                <select id='category' name='category' required>
-                                    <option desabled>Choose your product category</option>
 
-                                    {% for category in category %}
-                                        <option value='{{category.pk}}'>{{category.name}}</option>
-                                    {% endfor %}
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label class="form-control-label px-3">Category<span class="text-danger"> *</span></label>
 
-                                    
-                                </select> 
+                                {{form.category}}
+
+                                <div class="text-danger">{{form.category.errors}}</div>
+
                                 {% if errors.category %}
                                     <div class="errors" style="color: red;">
-                                        <p>{{errors.category}}</p>
+                                        <p>{{ errors.category }}</p>
                                     </div>
                                 {% endif %}
                             </div>
-                        </div>
+                        </div> 
+
                         <div class="row justify-content-between text-left">
-                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Quantity<span class="text-danger"> *</span></label> <input type="number" id="quantity" name="quantity" placeholder="Enter your quantity product" onblur="validate(3)" required> 
-                                {% if errors.quantity %}
-                                    <div class="errors" style="color: red;">
-                                        <p>{{errors.quantity}}</p>
-                                    </div>
-                                {% endif %}
-                            </div>
-                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Unit price of the product<span class="text-danger"> *</span></label> <input type="number" id="price" name="price" placeholder="Enter your unit price product" onblur="validate(4)" required>
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label class="form-control-label px-3">Unit price of the product<span class="text-danger"> *</span></label>
+
+                                {{form.price}}
+
+                                    <div class="text-danger">{{form.price.errors}}</div>
+
                                 {% if errors.price %}
                                     <div class="errors" style="color: red;">
-                                        <p>{{errors.price}}</p>
+                                        <p>{{ errors.price }}</p>
                                     </div>
                                 {% endif %}
                             </div>
-                        </div>
-                        <div class="row justify-content-between text-left">
-                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Description<span class="text-danger"> *</span></label> <input type="text" id="description" name="description" placeholder="Enter your product description" onblur="validate(5)" required> 
-                                {% if errors.description %}
+
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label class="form-control-label px-3">Quantity<span class="text-danger"> *</span></label>
+
+                                {{form.quantity}}
+
+                                <div class="text-danger">{{form.quantity.errors}}</div>
+
+                                {% if errors.quantity %}
                                     <div class="errors" style="color: red;">
-                                        <p>{{errors.description}}</p>
+                                        <p>{{ errors.quantity }}</p>
                                     </div>
                                 {% endif %}
                             </div>
                         </div>
+
                         <div class="row justify-content-between text-left">
-                            <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Expiration date<span class="text-danger"> *</span></label> <input type="date" id="expiration_date" name="expiration_date" placeholder="Enter your expiration date product" onblur="validate(6)" required>
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label class="form-control-label px-3">Expiration date<span class="text-danger"> *</span></label>
+
+                                {{form.expiration_date}}
+
+                                <div class="text-danger">{{form.expiration_date.errors}}</div>
+
                                 {% if errors.expiration_date %}
                                     <div class="errors" style="color: red;">
-                                        <p>{{errors.expiration_date}}</p>
+                                        <p>{{ errors.expiration_date }}</p>
                                     </div>
-                                {% endif %} 
+                                {% endif %}
                             </div>
-                        </div>
-                        <div class="row justify-content-between text-left">
-                            <div class="form-group col-12 flex-column d-flex">
+
+                            <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Image product<span class="text-danger"> *</span></label>
-                                <input type="file" id="image" name="image" accept="image/*" required>
+
+                                {{form.image}}
+
                                 {% if errors.image %}
                                     <div class="errors" style="color: red;">
-                                        <p>{{errors.image}}</p>
+                                        <p>{{ errors.image }}</p>
                                     </div>
                                 {% endif %}
                             </div>
                         </div>
+
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-12 flex-column d-flex  ">
+                                <label class="form-control-label px-3">Description<span class="text-danger"> *</span></label>
+
+                                {{form.description}}
+
+                                <div class="text-danger">{{form.description.errors}}</div>
+
+                                {% if errors.description %}
+                                    <div class="errors" style="color: red;">
+                                        <p>{{ errors.description }}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
                         <div class="row justify-content-end">
-                            <div class="form-group col-sm-6"><button type="submit" class=" btn-primary">Add</button></div>
+                            <div class="form-group col-sm-6">
+                                <button type="submit" class="btn-primary">Add</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -115,11 +148,7 @@
         </div>
     </div>
 
-        <script  src="{% static 'add_productJs.js' %}"></script>
-        <script src="{% static 'bootstrap.min.js' %}"></script>
-    </body>
+    <script src="{% static 'add_productJs.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+</body>
 </html>
-
-
-
-

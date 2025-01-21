@@ -16,7 +16,7 @@ def home(request) :
 class Add_products(CreateView):
     model = Product
     form_class = Add_product
-    template_name = 'add_product.html'
+    template_name = 'form_add_product.html'
     success_url = reverse_lazy('home')
 
 

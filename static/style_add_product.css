@@ -1,62 +1,66 @@
-body{
+body {
     color: #000;
     overflow-x: hidden;
     height: 100%;
-    /* background-image: url("https://i.imgur.com/GMmCQHC.png"); 
+    background-image: url("https://i.imgur.com/GMmCQHC.png"); 
     background-repeat: no-repeat;
-    background-size: 100% 100% */
-    background-color: blue;
+    background-size: cover;  /* Changer à cover pour s'adapter à la taille de l'écran */
+    background-color: blue; /* Couleur de fond plus douce */
 }
 
-.card{padding: 30px 40px;
+.card {
+    padding: 40px 50px; /* Augmenter le padding pour aérer le contenu */
     margin-top: 60px;
     margin-bottom: 60px;
     border: none !important;
-    box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2)
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Ombre plus douce */
+    border-radius: 10px; /* Bords arrondis pour un aspect moderne */
+    background: rgba(255, 255, 255, 0.9); /* Fond blanc semi-transparent */
 }
 
-.blue-text{
-    color: #00BCD4
+.blue-text {
+    color: #00BCD4;
+    font-weight: bold; /* Texte en gras pour attirer l'attention */
 }
 
-.form-control-label{
-    margin-bottom: 0
+.form-control-label {
+    margin-bottom: 10px; /* Espacement entre le label et le champ */
+    font-weight: bold; /* Mettre le texte en gras */
 }
 
-input, textarea, button{
-    padding: 8px 15px;
+input, textarea, button {
+    padding: 10px 15px; /* Augmenter le padding pour un meilleur confort */
     border-radius: 5px !important;
-    margin: 5px 0px;
+    margin: 10px 0; /* Espacement plus large entre les éléments */
     box-sizing: border-box;
     border: 1px solid #ccc;
-    font-size: 18px !important;
+    font-size: 16px; /* Taille de police légèrement réduite */
     font-weight: 300;
+    transition: border 0.3s ease; /* Ajouter une transition douce */
 }
 
-input:focus, textarea:focus{
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
+input:focus, textarea:focus {
     border: 1px solid #00BCD4;
-    outline-width: 0;
-    font-weight: 400
+    outline: none; /* Supprimer le contour par défaut */
+    box-shadow: 0 0 5px rgba(0, 188, 212, 0.5); /* Ombre autour du champ actif */
 }
 
-.btn-block{
+.btn-block {
     text-transform: uppercase;
-    font-size: 15px !important;
-    font-weight: 400;
-    height: 43px;
-    cursor: pointer
+    font-size: 16px; /* Taille de police augmentée pour le bouton */
+    font-weight: 600; /* Mettre le texte en gras */
+    height: 45px; /* Hauteur du bouton pour un meilleur aspect */
+    cursor: pointer;
+    background-color: #00BCD4; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    border: none; /* Supprimer la bordure */
+    transition: background-color 0.3s ease; /* Ajouter une transition douce */
 }
 
-.btn-block:hover{
-    color: #fff !important
+.btn-block:hover {
+    background-color: #0097a7; /* Couleur plus sombre au survol */
 }
 
-button:focus{
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    outline-width: 0
+button:focus {
+    outline: none; /* Supprimer le contour par défaut */
 }
