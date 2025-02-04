@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Adding products</title>
+    <title>Updating products</title>
     {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"> {% endcomment %}
     <link rel="stylesheet" href="{% static 'style_add_product.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
@@ -14,10 +14,9 @@
     <div class="container-fluid px-1 py-5 mx-auto">
         <div class="row d-flex justify-content-center">
             <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
-                <h3>Adding products</h3>
+                <h3>Updating product</h3>
                 <p class="blue-text">Notez bien que <br> tous les champs sont obligatoires.</p>
                 <div class="card">
-                    <h5 class="text-center mb-4">Powering world-class companies</h5>
                     <form class="form-card" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
 
@@ -35,10 +34,7 @@
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Product name<span class="text-danger"> *</span></label>
-
-                                {{form.name}}
-
-                                <div class="text-danger">{{form.name.errors}}</div>
+                                <input type="text" id="name" name="name" value="{{product.name}}" required> 
 
                                 {% if errors.name %}
                                     <div class="errors" style="color: red;">
@@ -49,10 +45,15 @@
 
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Category<span class="text-danger"> *</span></label>
-
-                                {{form.category}}
-
-                                <div class="text-danger">{{form.category.errors}}</div>
+                                <select name="category" id="category" required>
+                                    {% for category in categories  %}
+                                        <option value="{{category.pk}}"
+                                            {% if category.pk == product.category.pk %}
+                                                selected
+                                            {% endif %}
+                                        >{{category.name}}</option>
+                                    {% endfor %}
+                                </select>
 
                                 {% if errors.category %}
                                     <div class="errors" style="color: red;">
@@ -66,9 +67,7 @@
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Unit price of the product<span class="text-danger"> *</span></label>
 
-                                {{form.price}}
-
-                                    <div class="text-danger">{{form.price.errors}}</div>
+                                <input type="text" id="price" name="price" value="{{product.price}}" required> 
 
                                 {% if errors.price %}
                                     <div class="errors" style="color: red;">
@@ -80,9 +79,7 @@
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Quantity<span class="text-danger"> *</span></label>
 
-                                {{form.quantity}}
-
-                                <div class="text-danger">{{form.quantity.errors}}</div>
+                                <input type="text" id="quantity" name="quantity" value="{{product.quantity}}" required> 
 
                                 {% if errors.quantity %}
                                     <div class="errors" style="color: red;">
@@ -96,9 +93,7 @@
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Expiration date<span class="text-danger"> *</span></label>
 
-                                {{form.expiration_date}}
-
-                                <div class="text-danger">{{form.expiration_date.errors}}</div>
+                                <input type="date" id="expiration_date" name="expiration_date" value="{{product.expiration_date}}" required> 
 
                                 {% if errors.expiration_date %}
                                     <div class="errors" style="color: red;">
@@ -110,7 +105,7 @@
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Image product<span class="text-danger"> *</span></label>
 
-                                {{form.image}}
+                                <input type="file" id="image" name="image" value="{{product.image}}" required> 
 
                                 {% if errors.image %}
                                     <div class="errors" style="color: red;">
@@ -124,9 +119,7 @@
                             <div class="form-group col-12 flex-column d-flex  ">
                                 <label class="form-control-label px-3">Description<span class="text-danger"> *</span></label>
 
-                                {{form.description}}
-
-                                <div class="text-danger">{{form.description.errors}}</div>
+                                <input type="text" id="description" name="description" value="{{product.description}}" required> 
 
                                 {% if errors.description %}
                                     <div class="errors" style="color: red;">
@@ -139,7 +132,7 @@
                         <!-- Submit Button -->
                         <div class="row justify-content-end">
                             <div class="form-group col-sm-6">
-                                <button type="submit" class="btn-primary">Add</button>
+                                <button type="submit" class="btn-primary">Save</button>
                             </div>
                         </div>
                     </form>
