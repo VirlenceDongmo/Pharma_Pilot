@@ -13,6 +13,10 @@ def home(request) :
     return render(request,'home.html',{'products':products})
 
 
+def welcome(request):
+    return render(request, 'welcome.html')
+
+
 # Generation des formulaires al'aide des classe generiques
 
 class Add_products(CreateView):
