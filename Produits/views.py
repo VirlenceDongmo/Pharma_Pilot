@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.contrib import messages
@@ -76,6 +77,22 @@ def update_product(request, id):
             messages.ERROR(request, errors)
 
     return render(request, "update.html", {'product':product, 'categories':categories, 'errors':errors})
+
+
+
+def delete_product(request,id):
+    product = get_object_or_404(Product,id=id)
+    product.delete()
+    messages.success(request, "The product was successfully deleted !")
+    return redirect('home')
+
+
+
+def details_product(request, id):
+    product = Product.objects.get(id=id) 
+    return render(request, "details.html", {'product':product})
+
+
 
 
 # def add_product(request):

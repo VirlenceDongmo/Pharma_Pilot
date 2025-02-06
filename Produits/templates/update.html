@@ -105,7 +105,7 @@
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Image product<span class="text-danger"> *</span></label>
 
-                                <input type="file" id="image" name="image" value="{{product.image}}" required> 
+                                <input type="file" id="image" name="image" value="../{{product.image.url}}" required> 
 
                                 {% if errors.image %}
                                     <div class="errors" style="color: red;">
