@@ -94,6 +94,15 @@ def details_product(request, id):
 
 
 
+def search_product(request):
+    query = request.GET.get("product")
+    products = Product.objects.filter(name__icontains=query)
+    context = {
+        'products':products,
+    }
+    return render(request,"search.html", context)
+
+
 
 # def add_product(request):
 #     # Création de la variable pour la gestion des erreurs
