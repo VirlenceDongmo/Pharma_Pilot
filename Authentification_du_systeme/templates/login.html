@@ -44,6 +44,11 @@
 	</div>
 				<form class="login100-form validate-form" method="POST" >
                     {% csrf_token %}
+					{% if messages %}
+						{% for message in messages  %}
+							{{message}}
+						{% endfor %}
+					{% endif %}
 					<span class="login100-form-title">
 						Connection
 					</span>

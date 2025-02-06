@@ -36,9 +36,14 @@
 					</p>
 		</div>	
 	</div>
-<form class="login100-form validate-form" method="POST">
+<form class="login100-form validate-form" method="POST" action="{% url 'sign_up' %}">
 
     {% csrf_token %}
+	{% if messages %}
+		{% for message in messages  %}
+			{{message}}
+		{% endfor %}
+	{% endif %}
     <h3 class="login100-form-title">
         Création De Compte
     </h3>
