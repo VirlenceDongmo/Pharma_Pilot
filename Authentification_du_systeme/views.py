@@ -63,3 +63,57 @@ def login_view(request):
 
             return redirect('login')
     return render(request, 'login.html')
+
+
+# verification de l'existance de l'adresse email
+
+def email_checking(request):
+    if request.method=="POST":
+        email = request.POST.get('email')
+        
+        if not email:
+            messages.error(request, "Please enter an valid email address.")
+            return render(request,'emailChecking.html')
+        
+        user = User.objects.filter(email=email).first
+
+        if user:
+            return redirect('updatePassword', email=email)
+        else :
+            messages.error(request,"Please this email doesn't exit, try with another one or create an account.")
+            return redirect('emailChecking.html')
+        
+    return render(request, 'emailChecking.html')
+
+
+
+# changement de mot de pass
+
+def update_password(request, email):
+    try:
+        user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        messages.error(request, "User doesn't exists, try with another email address or create an account.")
+        return redirect('emailChecking')
+    
+    if request.method=="POST":
+        password = request.POST.get('password')
+        password_confirm = request.POST.get('password_confirm')
+
+        if password != password_confirm:
+            messages.error(request, "passwords are not the same, please try again !")
+            return redirect('sign_up')
+
+        if len(password) < 8 or not re.search(r'[A-Za-z]', password) or not re.search(r'\d', password) or not re.search(r'[!@#$%^&*(),-_+=<>?/;"\'\`~:{}[\]|]', password):
+            messages.error(request,"The password must contains at least 8 characters, including letters, numbers and specials characters")
+            return render('sign_up')
+        
+        user.set_password(password)
+        user.save()
+        messages.success(request, "Your password was updated successfully. You can sign in.")
+
+        return redirect('login')
+    
+    context={'email': email}
+
+    return render(request, 'updatePassword.html', context)
