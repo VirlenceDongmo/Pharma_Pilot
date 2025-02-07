@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<title>Page de connection</title>
+	<title>sign in page</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -27,7 +27,7 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="{% static 'bjp/images/img-01.png' %}" alt="IMG">
+					<img src="{% static 'bjp/images/logoPharma.jpeg' %}" alt="IMG">
 					<div class="container-login100-form-btn">
 						<p>
 							<a href="#" >
@@ -36,8 +36,8 @@
 						</p>
 					<br>
 					<p>
-						<a href="#" >
-							J'ai n'ai pas de compte
+						<a href="{% url 'sign_up' %}" >
+							I don't have an account.
 						</a>
 					</p>
 		</div>	
@@ -50,11 +50,11 @@
 						{% endfor %}
 					{% endif %}
 					<span class="login100-form-title">
-						Connection
+						Sign in
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="username" id="username" placeholder="Nom utilisateur">
+						<input class="input100" type="text" name="username" id="username" placeholder="Username">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-user" aria-hidden="true"></i>
@@ -62,7 +62,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="password" id="password" placeholder="Mot de passe">
+						<input class="input100" type="password" name="password" id="password" placeholder="Password">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -71,7 +71,7 @@
 					
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							Se Connecter
+							Sign in
 						</button>
 					</div>
 				</form>

@@ -7,25 +7,30 @@ from django.views.generic import CreateView
 from .forms import Add_product
 from django.urls import reverse_lazy
 from django.core.files.storage import FileSystemStorage
-
-def home(request) :
-    products = Product.objects.all()
-    return render(request,'home.html',{'products':products})
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
 def welcome(request):
     return render(request, 'welcome.html')
 
 
+@login_required(login_url='login')
+def home(request) :
+    products = Product.objects.all()
+    return render(request,'home.html',{'products':products})
+
+
 # Generation des formulaires al'aide des classe generiques
 
-class Add_products(CreateView):
+class Add_products(LoginRequiredMixin,CreateView):
     model = Product
     form_class = Add_product
     template_name = 'form_add_product.html'
     success_url = reverse_lazy('home')
 
 
+@login_required(login_url='login')
 def update_product(request, id):
     product=get_object_or_404(Product, id=id)
     categories=Category.objects.all()
@@ -84,6 +89,7 @@ def update_product(request, id):
 
 
 
+@login_required(login_url='login')
 def delete_product(request,id):
     product = get_object_or_404(Product,id=id)
     product.delete()
@@ -97,7 +103,7 @@ def details_product(request, id):
     return render(request, "details.html", {'product':product})
 
 
-
+@login_required(login_url='login')
 def search_product(request):
     query = request.GET.get("product")
     products = Product.objects.filter(name__icontains=query)
