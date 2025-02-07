@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 import re
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -44,9 +44,6 @@ def sign_up_view(request):
     return render(request, 'sign_up.html')
 
 
-
-
-
 def login_view(request):
 
     if request.method=="POST":
@@ -63,6 +60,12 @@ def login_view(request):
 
             return redirect('login')
     return render(request, 'login.html')
+
+
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'welcome.html')
 
 
 # verification de l'existance de l'adresse email
