@@ -43,6 +43,30 @@
 
     {% endif %}
 
+
+    {% if product.quantity == 0 %}
+
+        <h3 style="color:brown">The product {{product.name}} is unvailable.</h3>
+        <a href="{% url 'add_products' %}">
+            <button class="app-content-headerButton">Add stock of {{product.name}}</button>
+        </a>
+
+    {% elif product.quantity <= 5 %}
+
+        <h3 style="color:yellow">The stock of the product {{product.name}} is low.</h3>
+        <a href="{% url 'sale' product.id %}">
+            <button class="app-content-headerButton">sale {{product.name}}</button>
+        </a>
+
+    {% else %}
+
+        <h3 style="color:green">The product {{product.name}} can be sold.</h3>
+        <a href="{% url 'sale' product.id %}">
+            <button class="app-content-headerButton">sale {{product.name}}</button>
+        </a>
+
+    {% endif %}
+
     <div class="products-area-wrapper tableView">
         <div class="products-header">
             <div class="product-cell image">

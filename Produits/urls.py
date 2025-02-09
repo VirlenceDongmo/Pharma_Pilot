@@ -12,5 +12,8 @@ urlpatterns = [
     path('delete/<int:id>',delete_product , name='delete'),
     path('details/<int:id>',details_product , name='details'),
     path('search',search_product , name='search'),
+    path('sale/<int:id>',sale , name='sale'),
+    path('billing/<int:id>',billing, name='billing'),
+    path('view_bill/<int:id>',view_bill , name='view_bill'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

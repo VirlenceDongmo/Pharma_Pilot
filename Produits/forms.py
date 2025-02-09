@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Product
+from .models import Product, Sale
 from django import forms
 
 class Add_product(ModelForm) :
@@ -90,3 +90,39 @@ class Add_product(ModelForm) :
                 'required':"The product expiration_date is mandatory",
                 'invalid':"Please fill in the expiration date space with a valid value",
             }
+
+
+# formulaire de vente
+
+class Adding_sales(ModelForm):
+    quantity = forms.IntegerField(
+        help_text="Enter the quantity of the product.",
+        required=True
+    )
+    customer = forms.CharField(
+        help_text="Enter the name of the customer.",
+        max_length=100,
+        required=True
+    )
+
+    class Meta:
+        model = Sale
+        fields=['quantity','customer']
+
+        widgets = {
+
+            'customer':forms.TextInput(
+                attrs={
+                    'placeholder':"Enter the customer name",
+                    'class':"form-control",
+                }
+            ),
+
+            'quantity':forms.NumberInput(
+                attrs={
+                    'placeholder':"Enter the product quantity",
+                    'class':"form-control",
+                }
+            ),
+            
+        }

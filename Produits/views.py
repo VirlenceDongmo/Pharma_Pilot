@@ -4,7 +4,7 @@ from .models import *
 from django.contrib import messages
 from datetime import datetime
 from django.views.generic import CreateView
-from .forms import Add_product
+from .forms import Add_product, Adding_sales
 from django.urls import reverse_lazy
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -111,6 +111,99 @@ def search_product(request):
         'products':products,
     }
     return render(request,"search.html", context)
+
+
+
+# vente de produits
+
+@login_required(login_url='login')
+def sale(request, id):
+    product = get_object_or_404(Product, id=id)
+    message = None
+
+    if request.method == "POST":
+        form = Adding_sales(request.POST)
+
+        if form.is_valid():
+            quantity = form.cleaned_data['quantity']
+            customer = form.cleaned_data['customer']
+
+            if quantity > product.quantity:
+                message = "La quantité demandée est supérieure à votre stock."
+            else:
+                customer, created = Customer.objects.get_or_create(name=customer)
+
+                customer.save()
+
+                total_amount = product.price * quantity
+
+                sale = Sale(quantity=quantity, total_amount=total_amount, customer=customer, product=product)
+                sale.save()
+
+                product.quantity -= quantity
+                product.save()  
+
+                return redirect('billing', id=sale.id)  
+            
+    else:
+        form = Adding_sales()
+
+    
+    if product.quantity <= 5 and not message:
+        message = "Attention, le stock est faible !"
+    
+    context = {
+        'message': message,
+        'product': product,
+        'form': form,
+    }
+
+    return render(request, 'sale.html', context)  
+        
+
+
+#  facturation et sauvegarde
+
+@login_required(login_url='login')
+def billing(request, id):
+    sale = get_object_or_404(Sale, id=id)
+    customer = sale.customer
+    quantity = sale.quantity
+    sale_date = sale.sale_date
+    total_amount = sale.total_amount
+    product = sale.product
+
+    bill = Bill(customer=customer, quantity=quantity, sale_date=sale_date, total_amount=total_amount, product=product)
+    bill.save()
+
+    return redirect('view_bill', id=sale.id)
+
+
+
+# affichage de la facture
+
+@login_required(login_url='login')
+def view_bill(request,id):
+    sale = get_object_or_404(Sale, id=id)
+    customer = sale.customer
+    quantity = sale.quantity
+    sale_date = sale.sale_date
+    total_amount = sale.total_amount
+    product = sale.product
+
+    context = {
+        'customer': customer,
+        'quantity': quantity,
+        'sale_date': sale_date,
+        'total_amount': total_amount,
+        'product': product.name,
+        'id': sale.id,
+        'unit_price': product.price,
+    }
+
+    return render(request, 'viewBill.html',context)
+
+
 
 
 

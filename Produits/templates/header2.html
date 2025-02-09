@@ -21,12 +21,13 @@
           <button class="action-button filter jsFilter"><span>Filter</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></button>
           <div class="filter-menu">
             <label>Category</label>
-            <select>
-              <option>All Categories</option>
-              <option>Furniture</option>                     <option>Decoration</option>
-              <option>Kitchen</option>
-              <option>Bathroom</option>
+
+            <select name="category" id="category" required>
+
+              <option value="{{category.pk}}"></option>
+
             </select>
+
             <label>Status</label>
             <select>
               <option>All Status</option>

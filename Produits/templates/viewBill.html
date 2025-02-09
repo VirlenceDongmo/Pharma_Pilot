@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{% static 'css/styleFacture.css' %}">
+  <title>Bill</title>
+</head>
+<body>
+  <main>
+    <div class="app-icon">
+      <a href="{% url 'welcome' %}">
+        <img src="{% static 'logoPharma.jpeg' %}" alt="logo" style="width=100px; height:100px">
+      </a>
+    </div>
+    <h1>Pharma Pilot</h1>
+    <h2>Pharma Pilot bill</h2>
+    <p><time>Date & Hour :{{sale_date}} </time></p>
+    <table class="client">
+      <tr>
+        <th>Bill for</th>
+        <th>Bill number</th>
+      </tr>
+      <tr>
+        <td>{{customer}}</td>
+        <td>{{id}}</td>
+      </tr>
+        
+    </table>
+    <hr size="1">
+
+    <table class="description">
+      <tbody>
+        <tr>
+          <th>Product purchased </th>
+          <th>Quantity</th>
+          <th>Unit price</th>
+          <th>Total amount</th>
+        </tr>
+        <tr>
+          <td>{{product}}</td>
+          <td> {{quantity}}</td>
+          <td> {{unit_price}} FCFA</td>
+          <td>{{total_amount}} FCFA</td>
+        </tr>
+      </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">Note :</td>
+            <td>The products sold are neither exchanged nor refunded. </td>
+          </tr>
+          <tr>
+            <td colspan="3">For any concerns, see the seller.</td>
+          </tr>
+          <tr>
+            <td colspan="4">{{total_amount}} FCFA</td>
+          </tr>
+        </tfoot>  
+      </table>
+  </main>
+  <button id="print-button" style="background-color: blue; color: aliceblue;">Dowload</button>
+</body>
+<script>
+  document.getElementById("print-button").addEventListener("click", function() {
+      window.print();
+  });
+  </script>
+</html>
